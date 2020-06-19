@@ -11,16 +11,31 @@ import xml.parser.XmlParser;
 @SuppressWarnings("unchecked")
 public class IocContainer implements IIocContainer {
 
+	/**
+	 * 
+	 */
 	public static final String SingleInstance = "single-instance";
 	
+	/**
+	 * 
+	 */
 	private Map<String, Class<?>> _registered = new HashMap<String, Class<?>>();
 
+	/**
+	 * 
+	 */
 	private Map<String, Object> _singletons = new HashMap<String, Object>();
 
+	/**
+	 *
+	 */
 	public <T> void register(Class<T> item, String name) {
 		_registered.put(name, item);
 	}
 
+	/**
+	 *
+	 */
 	public <T> T resolve(String name) {
 		Object obj = _singletons.get(name);
 		if (obj != null) {
@@ -38,14 +53,24 @@ public class IocContainer implements IIocContainer {
 		return null;
 	}
 	
+	/**
+	 *
+	 */
 	public void register(File xml, String node) throws Exception {
 		register(XmlParser.parse(xml.getAbsolutePath(), node));
 	}
 
+	/**
+	 *
+	 */
 	public void register(InputStream xml, String node) throws Exception {
 		register(XmlParser.parse(xml, node));
 	}
 	
+	/**
+	 * @param map
+	 * @throws Exception
+	 */
 	private void register(Map<String, Object> map) throws Exception {
 		if (map != null) {
 			map = (Map<String, Object>) map.get("components");

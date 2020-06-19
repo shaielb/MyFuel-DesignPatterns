@@ -10,14 +10,26 @@ import ioc.IIocContainer;
 
 class Organizer<TKey, TMessage> implements IOrganizer<TKey, TMessage> {
 
+	/**
+	 * 
+	 */
 	private IIocContainer _iocContainer;
 
+	/**
+	 * 
+	 */
 	private Map<TKey, Link<TMessage>> _selector = new HashMap<TKey, Link<TMessage>>();
 
+	/**
+	 * @param iocContainer
+	 */
 	public Organizer(IIocContainer iocContainer) {
 		_iocContainer = iocContainer;
 	}
 
+	/**
+	 *
+	 */
 	public void initialize(Map<TKey, List<String>> chainDescription) throws Exception {
 		for (Entry<TKey, List<String>> entry : chainDescription.entrySet()) {
 			List<String> list = entry.getValue();
@@ -39,10 +51,16 @@ class Organizer<TKey, TMessage> implements IOrganizer<TKey, TMessage> {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public void execute(TKey key, TMessage message) {
 		_selector.get(key).execute(message);
 	}
 
+	/**
+	 *
+	 */
 	public IIocContainer getIocContainer() {
 		return _iocContainer;
 	}
